@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Save Evil Larry 🐱</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+
+background:linear-gradient(#87ceeb,#ffffff);
+
+overflow:hidden;
+
+height:100vh;
+
+}
+
+#score{
+
+position:absolute;
+
+top:20px;
+left:20px;
+
+font-size:28px;
+
+font-weight:bold;
+
+}
+
+#game{
+
+position:relative;
+
+width:100vw;
+
+height:100vh;
+
+overflow:hidden;
+
+}
+
+#cat{
+
+position:absolute;
+
+bottom:20px;
+
+left:45%;
+
+font-size:70px;
+
+transition:left .05s;
+
+user-select:none;
+
+}
+
+.item{
+
+position:absolute;
+
+font-size:45px;
+
+top:-60px;
+
+animation:fall linear forwards;
+
+}
+
+@keyframes fall{
+
+to{
+
+transform:translateY(110vh);
+
+}
+
+}
+
+#message{
+
+position:absolute;
+
+top:50%;
+
+left:50%;
+
+transform:translate(-50%,-50%);
+
+background:white;
+
+padding:35px;
+
+border-radius:25px;
+
+display:none;
+
+text-align:center;
+
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+
+}
+
+button{
+
+margin-top:20px;
+
+padding:15px 30px;
+
+border:none;
+
+border-radius:40px;
+
+background:black;
+
+color:white;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+.controls{
+
+position:absolute;
+
+bottom:15px;
+
+width:100%;
+
+display:flex;
+
+justify-content:center;
+
+gap:20px;
+
+}
+
+.controls button{
+
+font-size:28px;
+
+width:80px;
+
+height:60px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="score">
+❤️ 0 / 10
+</div>
+
+<div id="game">
+
+<div id="cat">🐱</div>
+
+<div id="message"></div>
+
+<div class="controls">
+
+<button onclick="moveLeft()">⬅️</button>
+
+<button onclick="moveRight()">➡️</button>
+
+</div>
+
+</div>
+
+<script>
+
+let score=0;
+
+let cat=document.getElementById("cat");
+
+let x=window.innerWidth/2;
+
+cat.style.left=x+"px";
+
+function moveLeft(){
+
+x-=40;
+
+if(x<0)x=0;
+
+cat.style.left=x+"px";
+
+}
+
+function moveRight(){
+
+x+=40;
+
+if(x>window.innerWidth-70)x=window.innerWidth-70;
+
+cat.style.left=x+"px";
+
+}
+
+document.addEventListener("keydown",(e)=>{
+
+if(e.key==="ArrowLeft") moveLeft();
+
+if(e.key==="ArrowRight") moveRight();
+
+});
+
+function spawn(){
+
+const item=document.createElement("div");
+
+item.className="item";
+
+const good=Math.random()>0.35;
+
+item.innerHTML=good?"❤️":"💔";
+
+item.style.left=Math.random()*(window.innerWidth-50)+"px";
+
+item.style.animationDuration=(2+Math.random()*2)+"s";
+
+document.getElementById("game").appendChild(item);
+
+const check=setInterval(()=>{
+
+const ir=item.getBoundingClientRect();
+
+const cr=cat.getBoundingClientRect();
+
+if(
+
+ir.bottom>cr.top &&
+
+ir.left<cr.right &&
+
+ir.right>cr.left
+
+){
+
+if(good){
+
+score++;
+
+document.getElementById("score").innerHTML="❤️ "+score+" / 10";
+
+}else{
+
+score=Math.max(0,score-1);
+
+document.getElementById("score").innerHTML="❤️ "+score+" / 10";
+
+}
+
+item.remove();
+
+clearInterval(check);
+
+if(score>=10){
+
+win();
+
+}
+
+}
+
+if(!document.body.contains(item)){
+
+clearInterval(check);
+
+}
+
+},30);
+
+setTimeout(()=>{
+
+item.remove();
+
+},4500);
+
+}
+
+setInterval(spawn,700);
+
+function win(){
+
+document.getElementById("message").style.display="block";
+
+document.getElementById("message").innerHTML=`
+
+<h1>🏆 Evil Larry Saved!</h1>
+
+<br>
+
+<p>You collected enough love to save me! 🐱</p>
+
+<br>
+
+<p>Mission Complete ✅</p>
+
+<p>Cat Council officially approves. 🐾</p>
+
+<br>
+
+<button onclick="location.href='index.html'">
+
+🤍 Back Home
+
+</button>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
