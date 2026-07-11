@@ -12,7 +12,7 @@ I wanted to make something instead of sending js another message.
 
 Every line here was written with you in mind.
 
-evrytime you dont see my msges i ovethink yeah ik its my bad habitt.evry mistake i make, u make me realise it nd correct me
+evrytime you dont see my msges i overthink yeah ik its my bad habitt.evry mistake i make, u make me realise it nd correct me
 
 this might be frm bleach but this is exactly my feelings about you
 
