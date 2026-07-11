@@ -61,24 +61,36 @@ button:hover{
     width:100%;
     height:100%;
     background:rgba(0,0,0,.45);
+
     display:none;
+
     justify-content:center;
-    align-items:center;
+
+    align-items:flex-start;
+
+    overflow-y:auto;
+
+    padding:30px 15px;
+
     animation:fade .4s;
+
+    z-index:999;
 }
 
 .letter-box{
     background:white;
-    width:min(90%,700px);
-    max-height:90vh;
 
-    overflow-y:auto;
+    width:min(90%,700px);
+
+    margin:30px auto;
 
     padding:30px;
 
     border-radius:20px;
 
     text-align:center;
+
+    max-height:none;
 }
 .letter-box h2{
     font-size:40px;
